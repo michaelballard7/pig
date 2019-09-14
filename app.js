@@ -43,17 +43,8 @@ rollBtn.addEventListener("click", function() {
     document.querySelector(`#current-${activePlayer}`).textContent = roundScore;
   } else {
     // Switch players
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-    roundScore = 0;
-    // reset scores
-    document.getElementById("current-0").textContent = 0;
-    document.getElementById("current-1").textContent = 0;
-    // toggle the active player
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    // hide the dice for next player
-    document.querySelector(".dice").style.display = "none";
+    nextPlayer();
+    
   }
 });
 
@@ -66,7 +57,27 @@ document.querySelector('.btn-hold').addEventListener('click', ()=>{
 
 
   // check if the player won the game
-  if(score[activePlayer] === 100){
+  if(scores[activePlayer] === 100){
     console.log(`Player ${activePlayer} has won the game.`)
+  } else{
+    nextPlayer();
   }
+
+  
 });
+
+function nextPlayer(){
+
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  roundScore = 0;
+  // reset scores
+  document.getElementById("current-0").textContent = 0;
+  document.getElementById("current-1").textContent = 0;
+  // toggle the active player
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  // hide the dice for next player
+  document.querySelector(".dice").style.display = "none";
+
+}
