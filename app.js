@@ -56,3 +56,17 @@ rollBtn.addEventListener("click", function() {
     document.querySelector(".dice").style.display = "none";
   }
 });
+
+document.querySelector('.btn-hold').addEventListener('click', ()=>{
+  // add current score to global score
+  scores[activePlayer] += roundScore;
+
+  // update the UI
+  document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer];
+
+
+  // check if the player won the game
+  if(score[activePlayer] === 100){
+    console.log(`Player ${activePlayer} has won the game.`)
+  }
+});
