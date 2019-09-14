@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "michaelaballard, reference Jonas Schmedtmann",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.9.0"
+  }
 }
