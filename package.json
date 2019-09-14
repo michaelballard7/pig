@@ -1,0 +1,11 @@
+{
+  "name": "pigjs",
+  "version": "1.0.0",
+  "description": "a remake of basic pig game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "michaelaballard, reference Jonas Schmedtmann",
+  "license": "ISC"
+}
