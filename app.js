@@ -12,16 +12,7 @@ remember, with querySelector always use # || . for ids and classes
 
 // declare and set my variables
 var scores, roundScore, activePlayer, dice;
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
-
-// select dom objects to edit css
-document.querySelector(".dice").style.display = "none";
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
+init();
 
 // select the roll button
 rollBtn = document.querySelector(".btn-roll");
@@ -44,30 +35,36 @@ rollBtn.addEventListener("click", function() {
   } else {
     // Switch players
     nextPlayer();
-    
   }
 });
 
-document.querySelector('.btn-hold').addEventListener('click', ()=>{
+document.querySelector(".btn-hold").addEventListener("click", () => {
   // add current score to global score
   scores[activePlayer] += roundScore;
 
   // update the UI
-  document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer];
-
+  document.getElementById(`score-${activePlayer}`).textContent =
+    scores[activePlayer];
 
   // check if the player won the game
-  if(scores[activePlayer] === 100){
-    console.log(`Player ${activePlayer} has won the game.`)
-  } else{
+  if (scores[activePlayer] >= 10) {
+    console.log(`Player ${activePlayer} has won the game.`);
+    document.querySelector(`#name-${activePlayer}`).textContent = "Winner";
+    document.querySelector(".dice").style.display = "none";
+    document
+      .querySelector(`.player-${activePlayer}-panel`)
+      .classList.add("winner");
+    document
+      .querySelector(`.player-${activePlayer}-panel`)
+      .classList.remove("active");
+    document.querySelector(".btn-roll").style.display = "none";
+    document.querySelector(".btn-hold").style.display = "none";
+  } else {
     nextPlayer();
   }
-
-  
 });
 
-function nextPlayer(){
-
+function nextPlayer() {
   activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
   roundScore = 0;
   // reset scores
@@ -79,5 +76,51 @@ function nextPlayer(){
 
   // hide the dice for next player
   document.querySelector(".dice").style.display = "none";
-
 }
+
+document.querySelector(".btn-new").addEventListener("click", init);
+
+// create a function to initialize a new game
+function init() {
+  scores = [0, 0];
+  roundScore = 0;
+  activePlayer = 0;
+
+  document.querySelector("#name-0").textContent = "Player 1";
+  document.querySelector("#name-1").textContent = "Player 2";
+
+  document.querySelector(".btn-roll").style.display = "block";
+  document.querySelector(".btn-hold").style.display = "block";
+
+  // prompt player name
+  let player1 = prompt("Player 1 What's your name?");
+  let player2 = prompt("Player 2 What's your name?");
+
+  if (player1 && player2 != null) {
+    document.querySelector("#name-0").textContent = player1;
+    document.querySelector("#name-1").textContent = player2;
+  }
+
+  // select dom objects to reset and edit css:
+  document.querySelector(".dice").style.display = "none";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+
+  // remove any winner text from last game:
+  document.querySelector(`.player-0-panel`).classList.remove("winner");
+  document.querySelector(`.player-1-panel`).classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document.querySelector(".player-0-panel").classList.add("active");
+}
+
+/*
+
+  finish the intialization function to dry the
+  code
+  
+
+*/
